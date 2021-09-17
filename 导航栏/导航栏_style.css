@@ -1,0 +1,36 @@
+:root{
+    font-size: calc(0.75vw+8px);
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #c0caf7;
+}
+ul{
+    position: relative;
+    z-index: 0;
+    display: flex;
+    padding: 0.5rem 0.5rem;
+    background-color: white;
+    border-radius: 3rem;
+}
+li{
+    padding: 0.5rem 1rem;
+    list-style: none;
+    text-transform: capitalize;
+    margin: 0 0.25ram;
+    transition: color ease-in-out 0.125s;
+}
+#item-att{
+    position: absolute;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    z-index: -1;
+    background-color: #598bf0;
+    border-radius: 1rem;
+    transition: left ease-in-out 0.125s,width ease-in-out 0.125s,height ease-in-out 0.125s;
+}
