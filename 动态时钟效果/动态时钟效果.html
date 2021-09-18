@@ -4,10 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./动态时钟效果_style.css">
+    <link rel="stylesheet" href="动态时钟效果_style.css">
     <title>动态时钟效果</title>
 </head>
 <body>
-    
+    <div id="clock"></div>
+
+    <script src="radialIndicator.min.js"></script>
+	<script src="angular.radialIndicator.js"></script>
+	<script type="text/javascript">
+		var radialObj = radialIndicator('#clock', {
+			radius: 200,
+			barWidth: 40,
+			barColor: '#FF3968',
+			minValue: 0,
+			maxValue: 60,
+			fontWeight: 'normal',
+			roundCorner: true,
+			format: function (value) {
+				var date = new Date();
+				return date.getHours() + ':' + date.getMinutes();
+			}
+		});
+
+		setInterval(function () {
+			radialObj.value(new Date().getSeconds() + 1);
+		}, 1000);
+	</script>
 </body>
 </html>
