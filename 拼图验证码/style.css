@@ -1,0 +1,118 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.reset{
+    position: absolute;
+    left: 37%;
+    top: 25%;
+    width: 70px;
+    height: 30px;
+    border: 1px #ccc solid;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#captcha{
+    --width: 400px;
+    --height: 260px;
+    --puzzle-width: 80px;
+    --puzzle-height: 80px;
+    --offset-left: var(--width)*-1;
+    --moved: 0px;
+
+    width: var(--width);
+    height: var(--height);
+    border-radius: 4px;
+    background-image: url(img/你的名字.jpg);
+    /* background-size: cover;
+    background-position: center; */
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0,0,0,.3);
+}
+#captcha::before, 
+#captcha::after{
+    position: absolute;
+    content: '';
+    display: block;
+    width: inherit;
+    height: inherit;
+    background-image: inherit;
+    background-size: inherit;
+    background-position: inherit;
+    
+    clip-path: inset(
+        calc( (var(--height) - var(--puzzle-height))/2)
+        var(--puzzle-height)
+        calc( (var(--height) - var(--puzzle-height))/2)
+        calc(var(--width) - var(--puzzle-width)*2)
+    );
+    -webkit-clip-path: inset(
+        calc( (var(--height) - var(--puzzle-height))/2)
+        var(--puzzle-height)
+        calc( (var(--height) - var(--puzzle-height))/2)
+        calc(var(--width) - var(--puzzle-width)*2)
+    );
+}
+#captcha::after{
+    transform: translateX(
+        /* 使用calc函数时要将数值与运算符以空格隔开 */
+        clamp(
+            calc( var(--width)*-1 ),
+            calc( (var(--width)*-1) + var(--moved)),
+            calc( var(--puzzle-width))
+        )
+    );
+     /* 验证失败时过渡 */
+    transition: .25s all ease-in-out;
+}
+#captcha:active::after{
+    transition: none;
+}
+#captcha::after:active{
+    background-color: rgba(0,0,0,1);
+}
+#captcha::before{
+    background-color: rgba(0,0,0,.6);
+    background-blend-mode: multiply;
+}
+#handle{
+    width: calc(var(--width) + var(--puzzle-width)*2);
+    height: 30px;
+    border-radius: 18px;
+    background-color: #eee;
+    position: absolute;
+    bottom: -50px;
+    left: calc(var(--puzzle-width)*2 *-1);
+    box-shadow: inset 0 0 12px rgba(0,0,0,.2);
+    border: 3px solid #ccc;
+}
+#handle span{
+    display: block;
+    width: var(--puzzle-width);
+    height: inherit;
+    border-radius: inherit;
+    background-color: #fff;
+    box-shadow: inset 0 0 6px rgba(0,0,0,.25),0 2px 4px rgba(0,0,0,.3);
+    position: absolute;
+    cursor: move;
+    transform: translateX(
+        clamp(
+            0px,
+            var(--moved),
+            calc( var(--width) + var(--puzzle-width) )
+        )
+    );
+    /* 验证失败时过渡 */
+    transition: .25s all ease-in-out;
+}
+#handle:active span{
+    transition: none;
+}
+/* 通过验证，则将下列元素隐藏 */
+#captcha.passed::before,
+#captcha.passed::after,
+#captcha.passed #handle{
+    opacity: 0;
+}
