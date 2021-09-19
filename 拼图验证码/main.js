@@ -2,6 +2,7 @@ let shouldMove =false;
 const captcha = document.querySelector('#captcha');
 const handle = document.querySelector('#handle');
 const button = document.querySelector('#handle span');
+const reset = document.querySelector('.reset');
 
 button.addEventListener('mousedown',(e)=>{
     shouldMove =true;
@@ -27,4 +28,8 @@ window.addEventListener('mouseup',(e)=>{
         }
         shouldMove = false;
     }
+});
+reset.addEventListener('click',()=>{
+    captcha.classList.remove('passed');
+    captcha.style.setProperty('--moved','0px');
 });
