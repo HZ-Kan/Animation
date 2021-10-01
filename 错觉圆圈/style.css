@@ -76,6 +76,4 @@ body{
 .container div:nth-child(9){
     --n:9;
 }
-.container div:nth-child(10){
-    --n:10;
-}
+
